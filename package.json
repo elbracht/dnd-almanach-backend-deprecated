@@ -4,7 +4,7 @@
   "description": "REST API for D&D compendium",
   "type": "module",
   "scripts": {
-    "start": "node index.js"
+    "start": "node --experimental-specifier-resolution=node src/index.js"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
