@@ -5,7 +5,7 @@ const router = express.Router();
 
 // Get all spells
 router.get('/spells', (req, res) => {
-  database.all('SELECT id, name FROM spells', (err, rows) => {
+  database.all('SELECT * FROM spells', (err, rows) => {
     if (err) {
       res.status(500).send(err.message);
     }
@@ -21,7 +21,7 @@ router.get('/spells', (req, res) => {
 // Get individual spell
 router.get('/spells/:id', (req, res) => {
   const { id } = req.params;
-  database.all(`SELECT id, name FROM spells WHERE id = ${id}`, (err, rows) => {
+  database.all(`SELECT * FROM spells WHERE id = ${id}`, (err, rows) => {
     if (err) {
       res.status(500).send(err.message);
     }
