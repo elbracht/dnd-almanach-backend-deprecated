@@ -23,6 +23,7 @@ router.get('/spells', (req, res) => {
 // Get individual spell
 router.get('/spells/:id', (req, res) => {
   const { id } = req.params;
+
   database.all(`SELECT * FROM spells WHERE id = ${id}`, (err, rows) => {
     if (err) {
       res.status(500).send(err.message);
@@ -62,7 +63,24 @@ router.post('/spells', (req, res) => {
 });
 
 // Update a spell
-router.put('/spells', (req, res) => {
+router.put('/spells/:id', (req, res) => {
+  const { id } = req.params;
+
+  const stmt = database.prepare('UPDATE spells SET name = COALESCE(?, name), description = COALESCE(?, description), school = COALESCE(?, school), level = COALESCE(?, level), casting_time = COALESCE(?, casting_time), range = COALESCE(?, range), components = COALESCE(?, components), duration = COALESCE(?, duration) WHERE id = ?');
+  stmt.run(
+    req.body.name || null,
+    req.body.description || null,
+    req.body.school || null,
+    req.body.level || null,
+    req.body.casting_time || null,
+    req.body.range || null,
+    req.body.components || null,
+    req.body.duration || null,
+    id,
+  );
+  stmt.finalize();
+
+  res.send('Spell was updated');
 });
 
 // Delete a spell
