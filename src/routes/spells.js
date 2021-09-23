@@ -1,29 +1,37 @@
 import express from 'express';
+import database from '../database/database';
 
 const router = express.Router();
 
 // Get all spells
 router.get('/spells', (req, res) => {
-  res.json({
-    1: { name: 'Ablenkung' },
-    2: { name: 'Alarm' },
+  database.all('SELECT id, name FROM spells', (err, rows) => {
+    if (err) {
+      res.status(500).send(err.message);
+    }
+
+    if (rows.length === 0) {
+      res.status(404).send('No spells found');
+    }
+
+    res.json(rows);
   });
 });
 
 // Get individual spell
 router.get('/spells/:id', (req, res) => {
   const { id } = req.params;
-  switch (id) {
-    case '1':
-      res.json({ name: 'Ablenkung' });
-      break;
-    case '2':
-      res.json({ name: 'Alarm' });
-      break;
-    default:
+  database.all(`SELECT id, name FROM spells WHERE id = ${id}`, (err, rows) => {
+    if (err) {
+      res.status(500).send(err.message);
+    }
+
+    if (rows.length === 0) {
       res.status(404).send('Spell not found');
-      break;
-  }
+    }
+
+    res.json(rows[0]);
+  });
 });
 
 // Create a spell

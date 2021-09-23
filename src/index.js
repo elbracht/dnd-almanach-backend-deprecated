@@ -1,5 +1,8 @@
 import express from 'express';
+import seedDatabase from './database/seedDatabase';
 import spells from './routes/spells';
+
+seedDatabase();
 
 const app = express();
 const port = process.env.PORT || 3000;
