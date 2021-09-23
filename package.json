@@ -2,18 +2,12 @@
   "name": "dnd-almanach-backend",
   "version": "0.1.0",
   "description": "REST API for D&D compendium",
-  "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/elbracht/dnd-almanach-backend.git"
-  },
-  "author": "Alexander Elbracht <alexander@elbracht.org>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/elbracht/dnd-almanach-backend/issues"
-  },
-  "homepage": "https://github.com/elbracht/dnd-almanach-backend#readme"
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.2"
+  }
 }
