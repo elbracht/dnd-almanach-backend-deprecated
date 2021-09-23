@@ -59,7 +59,7 @@ router.post('/spells', (req, res) => {
   );
   stmt.finalize();
 
-  res.send(`Spell '${req.body.name}' was created`);
+  res.send('Spell was successfully created');
 });
 
 // Update a spell
@@ -80,11 +80,18 @@ router.put('/spells/:id', (req, res) => {
   );
   stmt.finalize();
 
-  res.send('Spell was updated');
+  res.send('Spell was successfully updated');
 });
 
 // Delete a spell
-router.delete('/spells', (req, res) => {
+router.delete('/spells/:id', (req, res) => {
+  const { id } = req.params;
+
+  const stmt = database.prepare('DELETE FROM spells WHERE id = ?');
+  stmt.run(id);
+  stmt.finalize();
+
+  res.send('Spell was successfully deleted');
 });
 
 export default router;
